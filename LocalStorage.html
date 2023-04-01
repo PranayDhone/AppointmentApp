@@ -1,5 +1,11 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 <body>
     <form onsubmit="saveToLocalStorage(event)">
         <label>Name</label>
@@ -10,22 +16,45 @@
         <input type="tel" name="phonenumber" />
         <button>Submit</button>
     </form>
-    <ul>
+    <ul id="listOfItem"></ul>
+    <!-- <ul>
         <li>"pranay-pranay@gmail.com-1234"</li>
-    </ul>
+    </ul> -->
     <script>
         function saveToLocalStorage(event){
             event.preventDefault();
             const name =event.target.username.value;
             const email =event.target.emailId.value;
-            const phonenumber =event.target.phonenumber;
-            localStorage.setItem('name',name);
-            localStorage.setItem('name',emailId);
-            localStorage.setItem('name',phonenumber);
+            const phonenumber =event.target.phonenumber.value;
+            // localStorage.setItem('name',name);
+            // localStorage.setItem('email',emailId);
+            // localStorage.setItem('phonenumber',phonenumber);
 
-
+            const obj={
+                name,
+                email,
+                phonenumber
+            }
+            localStorage.setItem(obj.email, JSON.stringify(obj));
+            showUserOnScreen(obj);
         }
-    </script>
+        function showUserOnScreen(obj){
+            const parentItem=document.getElementById('listOfItem');
+            const childrenItem=document.createElement('li');
+            childrenItem.textContent=obj.name+'-'+obj.email+'-'+obj.phonenumber;
 
+            const deletebtn=document.createElement('input');
+            deletebtn.type='button';
+            deletebtn.value='delete';
+            deletebtn.onclick=()=>{
+                localStorage.removeItem(obj.email)
+                parentItem.removeChild(childrenItem)
+            }
+
+            childrenItem.appendChild(deletebtn)
+            parentItem.appendChild(childrenItem);
+        }
+
+    </script>
 </body>
 </html>
