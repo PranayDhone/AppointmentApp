@@ -17,9 +17,7 @@
         <button>Submit</button>
     </form>
     <ul id="listOfItem"></ul>
-    <!-- <ul>
-        <li>"pranay-pranay@gmail.com-1234"</li>
-    </ul> -->
+
     <script>
         function saveToLocalStorage(event){
             event.preventDefault();
@@ -38,12 +36,12 @@
             localStorage.setItem(obj.email, JSON.stringify(obj));
             showUserOnScreen(obj);
         }
-        function showUserOnScreen(obj){
+        function showUserOnScreen(obj){                     //SHOW USER ON SCREEN
             const parentItem=document.getElementById('listOfItem');
             const childrenItem=document.createElement('li');
             childrenItem.textContent=obj.name+'-'+obj.email+'-'+obj.phonenumber;
 
-            const deletebtn=document.createElement('input');
+            const deletebtn=document.createElement('input'); //ADDING DELETE BUTTON
             deletebtn.type='button';
             deletebtn.value='delete';
             deletebtn.onclick=()=>{
@@ -52,6 +50,19 @@
             }
 
             childrenItem.appendChild(deletebtn)
+            parentItem.appendChild(childrenItem);
+
+
+
+            const Editbtn=document.createElement('input'); //ADDING DELETE BUTTON
+            Editbtn.type='button';
+            Editbtn.value='Edit';
+            Editbtn.onclick=()=>{
+                localStorage.removeItem(obj.email)
+                parentItem.removeChild(childrenItem)
+            }
+
+            childrenItem.appendChild(Editbtn)
             parentItem.appendChild(childrenItem);
         }
 
