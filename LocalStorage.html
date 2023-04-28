@@ -33,8 +33,17 @@
                 email,
                 phonenumber
             }
-            localStorage.setItem(obj.email, JSON.stringify(obj));
-            showUserOnScreen(obj);
+
+            axios.post("https://crudcrud.com/api/55b6d712b3734fa3949ecf05f71f98db/appointmentData")
+            .then((respone)=>{
+                console.log(respone)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+            // localStorage.setItem(obj.email, JSON.stringify(obj));
+            // showUserOnScreen(obj);
         }
         function showUserOnScreen(obj){                     //SHOW USER ON SCREEN
             const parentItem=document.getElementById('listOfItem');
